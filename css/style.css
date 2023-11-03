@@ -1,0 +1,28 @@
+.text-center {
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.month {
+    width: 230px;
+    height: 230px;
+    background: gold;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+    text-align: center;
+}
+
+.day {
+    width: 15px;
+    height: 15px;
+    background: honeydew;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+    text-align: center;
+}
