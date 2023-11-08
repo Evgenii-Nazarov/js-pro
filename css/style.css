@@ -26,3 +26,11 @@
     float: left;
     text-align: center;
 }
+
+.green-day {
+    background-color: aqua;
+}
+
+.blue-month {
+    background-color: dodgerblue;
+}
