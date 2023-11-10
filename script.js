@@ -1,19 +1,48 @@
-console.log('Hello')
-
 const input = document.querySelector('.in')
 const button = document.querySelector('.btn')
 const out = document.querySelector('.out')
+const todo = document.querySelector('#todo')
 
-const date = { day: 0, month: 0 }
+const date = { day: null, month: null }
+
+const MONTHS_MAP = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec',
+}
 
 button.onclick = () => {
-    console.log('Click!')
-    out.innerHTML = input.value
+    // Validate a day pick
+    if (date.day === null) {
+        alert('Pick a date')
+        return
+    }
+
+    // Validate input
+    if (input.value === '') {
+        alert('Input a todo')
+        return
+    }
+
+    // Create a new <li></li> element and append to <ul></ul>
+    const todoItem = document.createElement('li')
+    todo.appendChild(todoItem)
+    todoItem.innerHTML = `${input.value} on ${MONTHS_MAP[date.month + 1]} ${date.day}`
+    input.value = ''
 }
 
 for (let index = 1; index <= 12; index++) {
     const month = document.createElement('div')
-    month.innerHTML = index + '<br>'
+    month.innerHTML = MONTHS_MAP[index] + '<br>'
     month.classList.add('month')
 
     for (let j = 1; j <= 31; j++) {
@@ -28,20 +57,37 @@ for (let index = 1; index <= 12; index++) {
 
 const allMonths = document.querySelectorAll('.month')
 
-allMonths.forEach((month, index) => {
+allMonths.forEach((month, i) => {
     month.onclick = () => {
+        if (i !== date.month)
         clearMonth()
         month.classList.toggle('blue-month')
-        date.month = index
+        date.month = i
     }
+
+    const monthDays = month.querySelectorAll('.day')
+    monthDays.forEach((day, j) => {
+        day.onclick = () => {
+            day.classList.toggle('green-day')
+            if (date.month === i)
+            month.classList.toggle('blue-month')
+            if (j !== date.day)
+            clearDay()
+            if (date.day === j)
+            date.day = null
+            else 
+            date.day = j
+        }
+    })
 })
 
 const clearMonth = () => {
-    allMonths[date.month].classList.remove('blue-month')
+    allMonths[date.month]?.classList.remove('blue-month')
 }
 
-    // month.classList.toggle('month') - toggles a class on element
-    // month.classList.remove('month') - removes a class from element
+const clearDay = () => {
+    allMonths[date.month]?.querySelectorAll('.day')[date.day]?.classList.remove('green-day')
+}
 
     /** 
      * Tasks:
